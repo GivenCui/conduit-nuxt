@@ -1,0 +1,23 @@
+{
+  "name": "conduit-nuxt",
+  "version": "1.0.0",
+  "description": "conduit基于nuxt.js实现版本",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nuxt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GivenCui/conduit-nuxt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GivenCui/conduit-nuxt/issues"
+  },
+  "homepage": "https://github.com/GivenCui/conduit-nuxt#readme",
+  "dependencies": {
+    "nuxt": "^2.15.6"
+  }
+}
