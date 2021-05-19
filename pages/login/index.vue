@@ -23,9 +23,10 @@
             </fieldset>
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
-                     type="text"
+                     type="email"
                      placeholder="Email"
                      v-model="user.email"
+                     required
               >
             </fieldset>
             <fieldset class="form-group">
@@ -33,6 +34,7 @@
                      type="password"
                      placeholder="Password"
                      v-model="user.password"
+                     required
               >
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right">
