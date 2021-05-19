@@ -21,7 +21,10 @@
             <fieldset class="form-group" v-if="!isLogin">
               <input class="form-control form-control-lg"
                      type="text"
-                     placeholder="Your Name">
+                     placeholder="Your Name"
+                     v-model="user.username"
+                     required       
+              >
             </fieldset>
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
@@ -37,6 +40,7 @@
                      placeholder="Password"
                      v-model="user.password"
                      required
+                     minlength="8"
               >
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right">
@@ -62,6 +66,7 @@ export default {
     data () {
       return {
         user: {
+          username: '',
           email: '',
           password: ''
         },
@@ -75,9 +80,10 @@ export default {
     },
     methods: {
       async onSubmit () {
+        let apiFn = this.isLogin ? login : register
         try {
           // 提交表单, 请求登录
-          let { data } = await login({
+          let { data } = await apiFn({
               user: this.user
           })
 
