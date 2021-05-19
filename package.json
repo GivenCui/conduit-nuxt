@@ -19,5 +19,8 @@
   "homepage": "https://github.com/GivenCui/conduit-nuxt#readme",
   "dependencies": {
     "nuxt": "^2.15.6"
+  },
+  "devDependencies": {
+    "axios": "^0.21.1"
   }
 }
