@@ -11,9 +11,11 @@
             <nuxt-link v-else to="/login">Have an account?</nuxt-link>
           </p>
 
-          <ul class="error-messages">
-            <li>That email is already taken</li>
-          </ul>
+              <ul class="error-messages" >
+                <template v-for="(msgArr, field) in errors" >
+                  <li v-for="(msg, idx) in msgArr" :key="field + idx">{{field}} {{msg}}</li>
+                </template>
+              </ul>
 
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group" v-if="!isLogin">
@@ -62,21 +64,32 @@ export default {
         user: {
           email: '',
           password: ''
-        }
+        },
+        errors: {
+          // 'email or password': ['is invilide', 'is a'],
+          // "password": [
+          //   "can't be empty"
+          // ]
+        } // 错误信息
       }
     },
     methods: {
       async onSubmit () {
-        // 提交表单, 请求登录
-        let { data } = await login({
-            user: this.user
-        })
+        try {
+          // 提交表单, 请求登录
+          let { data } = await login({
+              user: this.user
+          })
 
-        console.log(data)
-        // 保存用户登录状态, 鉴权
+          console.log(data)
+          // 保存用户登录状态, 鉴权
 
-        // 跳转首页
-        this.$router.push('/')
+          // 跳转首页
+          this.$router.push('/')
+        } catch (error) {
+          // console.dir(error) // error.response.data.errors['email or password']
+          this.errors = error.response.data.errors
+        }
       }
     }
 }
