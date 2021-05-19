@@ -30,6 +30,28 @@
                         name: 'register',
                         component: resolve(__dirname, 'pages/login/')
                     },
+                    {
+                        path: '/profile/:username',
+                        name: 'profile',
+                        props: true,
+                        component :resolve(__dirname, 'pages/profile/')
+                    },
+                    {
+                        path: '/settings',
+                        name: 'settings',
+                        component :resolve(__dirname, 'pages/settings/')
+                    },
+                    {
+                        path: '/editor',
+                        name: 'editor',
+                        component :resolve(__dirname, 'pages/editor/')
+                    },
+                    {
+                        path: '/article/:slug',
+                        props: true,
+                        name: 'article',
+                        component :resolve(__dirname, 'pages/article/')
+                    }
                 ]
             }
         ])
