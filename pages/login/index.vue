@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import request from '@/utils/webApi'
+import { login, register } from '@/api/user.js'
 export default {
     name: 'LoginIndex',
     computed: {
@@ -64,17 +64,13 @@ export default {
       }
     },
     methods: {
-      onSubmit () {
+      async onSubmit () {
         // 提交表单, 请求登录
-        const { data } = request({
-          method: 'POST',
-          url: '/api/users/login',
-          data: {
+        let { data } = await login({
             user: this.user
-          }
         })
 
-        // console.log(data)
+        console.log(data)
         // 保存用户登录状态, 鉴权
 
         // 跳转首页
