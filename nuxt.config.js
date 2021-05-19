@@ -61,6 +61,8 @@
         //   path: '*',
         //   component: resolve(__dirname, 'pages/404.vue')
         // })
-      }
+      },
+      linkActiveClass: 'active',
+      linkExactActiveClass: 'active',
     }
   }

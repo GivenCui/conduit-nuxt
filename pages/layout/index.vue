@@ -5,13 +5,14 @@
       <div class="container">
         <!-- <a class="navbar-brand" href="index.html">conduit</a> -->
         <nuxt-link class="navbar-brand"
-                   to="/">conduit</nuxt-link>
+                   to="/" exact>conduit</nuxt-link>
         <ul class="nav navbar-nav pull-xs-right">
           <li class="nav-item">
             <!-- Add "active" class when you're on that page" -->
             <!-- <a class="nav-link active" href="">Home</a> -->
-            <nuxt-link class="nav-link active"
-                       to="">Home</nuxt-link>
+            <nuxt-link
+              class="nav-link"
+              to="/" exact>Home</nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link"
