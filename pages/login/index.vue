@@ -89,6 +89,7 @@ export default {
 
           console.log(data)
           // 保存用户登录状态, 鉴权
+          // data 中返回有用户的登录信息和鉴权参数 token, 参考: https://github.com/gothinkster/realworld/tree/master/api#users-for-authentication
 
           // 跳转首页
           this.$router.push('/')
