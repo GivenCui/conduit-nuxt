@@ -19,10 +19,21 @@
                         path: '', // 默认子路由
                         name: 'home',
                         component: resolve(__dirname, 'pages/home/')
-                    }
+                    },
+                    {
+                        path: '/login',
+                        name: 'login',
+                        component: resolve(__dirname, 'pages/login/')
+                    },
+                    {
+                        path: '/register',
+                        name: 'register',
+                        component: resolve(__dirname, 'pages/login/')
+                    },
                 ]
             }
         ])
+
         // routes.push({
         //   name: 'custom',
         //   path: '*',
