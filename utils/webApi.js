@@ -12,5 +12,4 @@ const request = axios.create({
 
 
 // TODO: 响应拦截器
-
 export default request

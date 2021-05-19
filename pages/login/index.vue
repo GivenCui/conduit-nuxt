@@ -15,7 +15,7 @@
             <li>That email is already taken</li>
           </ul>
 
-          <form>
+          <form @submit.prevent="onSubmit">
             <fieldset class="form-group" v-if="!isLogin">
               <input class="form-control form-control-lg"
                      type="text"
@@ -24,12 +24,16 @@
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                      type="text"
-                     placeholder="Email">
+                     placeholder="Email"
+                     v-model="user.email"
+              >
             </fieldset>
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
                      type="password"
-                     placeholder="Password">
+                     placeholder="Password"
+                     v-model="user.password"
+              >
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right">
               {{ isLogin ? 'Sign in' : 'Sign up' }}
@@ -43,6 +47,7 @@
 </template>
 
 <script>
+import request from '@/utils/webApi'
 export default {
     name: 'LoginIndex',
     computed: {
@@ -50,8 +55,31 @@ export default {
             return this.$route.name === 'login'
         }
     },
-    created () {
-        console.log()
+    data () {
+      return {
+        user: {
+          email: '',
+          password: ''
+        }
+      }
+    },
+    methods: {
+      onSubmit () {
+        // 提交表单, 请求登录
+        const { data } = request({
+          method: 'POST',
+          url: '/api/users/login',
+          data: {
+            user: this.user
+          }
+        })
+
+        // console.log(data)
+        // 保存用户登录状态, 鉴权
+
+        // 跳转首页
+        this.$router.push('/')
+      }
     }
 }
 </script>
