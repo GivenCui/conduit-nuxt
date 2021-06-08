@@ -70,12 +70,13 @@ export default {
           email: '',
           password: ''
         },
+        // 错误信息 测试
         errors: {
           // 'email or password': ['is invilide', 'is a'],
           // "password": [
           //   "can't be empty"
           // ]
-        } // 错误信息
+        }
       }
     },
     methods: {
@@ -89,12 +90,16 @@ export default {
 
           console.log(data)
           // 保存用户登录状态, 鉴权
-          // data 中返回有用户的登录信息和鉴权参数 token, 参考: https://github.com/gothinkster/realworld/tree/master/api#users-for-authentication
+          // data 中返回有用户的登录信息和鉴权参数 token
+          // 参考: https://github.com/gothinkster/realworld/tree/master/api#users-for-authentication
 
           // 跳转首页
           this.$router.push('/')
         } catch (error) {
-          // console.dir(error) // error.response.data.errors['email or password']
+          // console.log 打印不出来
+          // error.response.data.errors['email or password']  <-- key
+          // { 'email or password' : ['is invalid'] }
+          console.dir(error)
           this.errors = error.response.data.errors
         }
       }
