@@ -1,7 +1,9 @@
 # conduit-nuxt
+
 conduit基于nuxt.js实现版本
 
 ## 步骤
+
 - feat: 安装nuxt, 配置scripts
 - feat: 样式转为国内CDN 或 本土化
 - feat: app.html挪到根目录
@@ -20,10 +22,15 @@ conduit基于nuxt.js实现版本
 - feat: 15-同构应用的登录状态处理过程
 
 ### 15-同构应用的登录状态处理过程
+
+> 讲解, 无 coding
+
 #### SPA 应用 (CSR)
+
 - 登录状态存储在 store 或 localStorage 中
 
 #### 同构应用
+
 - 同构应用处理起来不能和 SPA 一样 ??
 - 应为无论在客户端渲染 还是 服务端渲染时, 都应该能拿到登录状态
 - nuxt [官网解决方案: JWT](https://www.nuxtjs.cn/examples/auth-external-jwt)

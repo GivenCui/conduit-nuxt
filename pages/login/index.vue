@@ -88,10 +88,11 @@ export default {
               user: this.user
           })
 
-          console.log(data)
           // 保存用户登录状态, 鉴权
           // data 中返回有用户的登录信息和鉴权参数 token
           // 参考: https://github.com/gothinkster/realworld/tree/master/api#users-for-authentication
+          // console.log(data)
+          this.$store.commit('setUser', data.user) // 1. 存到 vuex 容器 store 中
 
           // 跳转首页
           this.$router.push('/')
