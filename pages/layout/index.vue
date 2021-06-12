@@ -7,37 +7,42 @@
         <nuxt-link class="navbar-brand"
                    to="/" exact>conduit</nuxt-link>
         <ul class="nav navbar-nav pull-xs-right">
-          <li class="nav-item">
-            <!-- Add "active" class when you're on that page" -->
-            <!-- <a class="nav-link active" href="">Home</a> -->
-            <nuxt-link
-              class="nav-link"
-              to="/" exact>Home</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link"
-                       to="/editor"><i class="ion-compose"></i>&nbsp;New Post</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link"
-                       to="/settings"><i class="ion-gear-a"></i>&nbsp;Settings</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link"
-                       to="/login">Sign in</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link"
-                       to="/register">Sign up</nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link class="nav-link"
-                       to="/profile/1">
-              <img class="user-pic"
-                   src="https://avatars.githubusercontent.com/u/17002107?s=400&amp;u=e86d6529e37d7cd872b20005ebbe86be72e7a38e&amp;v=4" />
-              givencui
-            </nuxt-link>
-          </li>
+          <template v-if="!!user">
+            <li class="nav-item">
+              <!-- Add "active" class when you're on that page" -->
+              <!-- <a class="nav-link active" href="">Home</a> -->
+              <nuxt-link
+                class="nav-link"
+                to="/" exact>Home</nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link class="nav-link"
+                        to="/editor"><i class="ion-compose"></i>&nbsp;New Post</nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link class="nav-link"
+                        to="/settings"><i class="ion-gear-a"></i>&nbsp;Settings</nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link class="nav-link"
+                        to="/profile/1">
+                <img class="user-pic"
+                    :src="user.image" />
+                {{ user.username }}
+              </nuxt-link>
+            </li>
+          </template>
+          <template v-if="!user">
+            <li class="nav-item">
+              <nuxt-link class="nav-link"
+                        to="/login">Sign in</nuxt-link>
+            </li>
+            <li class="nav-item">
+              <nuxt-link class="nav-link"
+                        to="/register">Sign up</nuxt-link>
+            </li>
+          </template>
+          
         </ul>
       </div>
     </nav>
@@ -60,8 +65,13 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
-  name: 'LayoutIndex'
+  name: 'LayoutIndex',
+  computed: {
+    ...mapState(['user'])
+  }
 }
 </script>
 
