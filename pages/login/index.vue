@@ -56,6 +56,8 @@
 
 <script>
 import { login, register } from '@/api/user.js'
+// nuxt 提供的 process.client  true 表示运行在客户端
+const Cookie = process.client ? require('js-cookie') : undefined
 export default {
     name: 'LoginIndex',
     computed: {
@@ -93,6 +95,10 @@ export default {
           // 参考: https://github.com/gothinkster/realworld/tree/master/api#users-for-authentication
           // console.log(data)
           this.$store.commit('setUser', data.user) // 1. 存到 vuex 容器 store 中
+
+          //  为了防止刷新页面数据丢失, 我们需要把数据持久化
+          Cookie.set('user', data.user)
+          
 
           // 跳转首页
           this.$router.push('/')

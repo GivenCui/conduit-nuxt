@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/GivenCui/conduit-nuxt#readme",
   "dependencies": {
+    "cookieparser": "^0.1.0",
+    "js-cookie": "^2.2.1",
     "nuxt": "^2.15.6"
   },
   "devDependencies": {
