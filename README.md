@@ -25,6 +25,7 @@ conduit基于nuxt.js实现版本
 - feat: 18-登录注册 处理导航栏链接根据登录状态展示
 - feat: 19-登录注册 处理页面URL直接访问权限
 - feat: 20-首页-业务介绍 (无 coding)
+- feat: 21-首页-展示公共文章列表
 
 ### 15-同构应用的登录状态处理过程
 
@@ -65,3 +66,6 @@ conduit基于nuxt.js实现版本
   - Unknown middleware authenticated 时, 重启 npm run dev 试试
 - 思考
   - 中间件中 redirect 的原理?
+
+### 21-首页-展示公共文章列表
+[接口 GET /api/articles](https://github.com/gothinkster/realworld/tree/master/api#list-articles)

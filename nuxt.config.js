@@ -6,7 +6,7 @@
  export default {
     router: {
       extendRoutes(routes, resolve) {
-        console.log('----->', routes) // <-- console.log 在 控制台打印
+        // console.log('----->', routes) // <-- console.log 在 控制台打印
         // 清空 routes 数组, 清除 Nuxt.js 基于 pages 目录的 默认配置
         routes.splice(0)
 
