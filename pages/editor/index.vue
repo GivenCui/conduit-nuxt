@@ -42,7 +42,9 @@
 
 <script>
 export default {
-    name: 'EditorIndex'
+    name: 'EditorIndex',
+    // middleware: 'authenticated',
+    middleware: ['authenticated'],
 }
 </script>
 

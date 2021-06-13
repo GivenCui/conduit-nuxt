@@ -95,7 +95,9 @@
 <script>
 export default {
     name: 'ProfileIndex',
-    props: ['username']
+    props: ['username'],
+    middleware: 'authenticated'
+    // middleware: ['authenticated']
 }
 </script>
 

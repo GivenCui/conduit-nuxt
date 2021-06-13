@@ -60,6 +60,7 @@ import { login, register } from '@/api/user.js'
 const Cookie = process.client ? require('js-cookie') : undefined
 export default {
     name: 'LoginIndex',
+    middleware: ['unauthenticated'],
     computed: {
         isLogin () {
             return this.$route.name === 'login'
