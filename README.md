@@ -26,6 +26,7 @@ conduit基于nuxt.js实现版本
 - feat: 19-登录注册 处理页面URL直接访问权限
 - feat: 20-首页-业务介绍 (无 coding)
 - feat: 21-首页-展示公共文章列表
+- feat: 22-首页-列表分页-分页参数的使用
 
 ### 15-同构应用的登录状态处理过程
 
@@ -69,3 +70,22 @@ conduit基于nuxt.js实现版本
 
 ### 21-首页-展示公共文章列表
 [接口 GET /api/articles](https://github.com/gothinkster/realworld/tree/master/api#list-articles)
+
+### 22-首页-列表分页-分页参数的使用
+接口 /api/articles
+- ?limit=20
+- ?offset=0 数据偏移量, 和页面有关
+
+```js
+// 计算公式
+// limit 每页数据条数
+// offset 数据偏移量, 0 开始
+// articlesCount 总数据量
+
+// page 第几页, 1 开始
+offset = (page - 1) * limit
+
+// pageCounts 总页数
+pageCounts = Math.ceil(articlesCount / limit) 
+
+```

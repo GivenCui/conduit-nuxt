@@ -114,8 +114,13 @@ import { getArticles } from '@/api/article'
 export default {
   name: 'HomeIndex',
   async asyncData () {
-    const { data } = await getArticles()
-    console.log(data.articles[0]);
+    const page = 1
+    const limit = 2
+    const { data } = await getArticles({
+      limit,
+      offset: (page - 1) * limit
+    })
+    // console.log(data.articles[0]);
     return {
       articles: data.articles,
       articlesCount: data.articlesCount  // 总数据量
