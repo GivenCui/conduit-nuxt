@@ -27,6 +27,7 @@ conduit基于nuxt.js实现版本
 - feat: 20-首页-业务介绍 (无 coding)
 - feat: 21-首页-展示公共文章列表
 - feat: 22-首页-列表分页-分页参数的使用
+- feat: 23-首页-列表分页-页码处理
 
 ### 15-同构应用的登录状态处理过程
 
@@ -89,3 +90,9 @@ offset = (page - 1) * limit
 pageCounts = Math.ceil(articlesCount / limit) 
 
 ```
+
+### 23-首页-列表分页-页码处理
+[参考示例样式](https://demo.realworld.io/#/)
+
+
+默认情况下，query 的改变不会调用asyncData方法。如果要监听这个行为，例如，在构建分页组件时，您可以设置应通过页面组件的[watchQuery属性](https://www.nuxtjs.cn/api/pages-watchquery)监听参数

@@ -25,51 +25,42 @@
             </ul>
           </div>
 
-          <div
-            class="article-preview"
-            v-for="article in articles"
-            :key="article.slug"
-          >
+          <div class="article-preview"
+               v-for="article in articles"
+               :key="article.slug">
             <div class="article-meta">
-              <nuxt-link
-                :to="{
+              <nuxt-link :to="{
                   name: 'profile',
                   params: {
                     username: article.author.username
                   }
-                }"
-              ><img :src="article.author.image" /></nuxt-link>
+                }"><img :src="article.author.image" /></nuxt-link>
               <div class="info">
-                <nuxt-link
-                  :to="{
+                <nuxt-link :to="{
                     name: 'profile',
                     params: {
                       username: article.author.username
                     }
                   }"
-                   class="author"
-                >
+                           class="author">
                   {{article.author.username}}
                 </nuxt-link>
                 <span class="date">{{article.createdAt}}</span>
               </div>
-              <button
-                class="btn btn-outline-primary btn-sm pull-xs-right"
-                :class="{
+              <button class="btn btn-outline-primary btn-sm pull-xs-right"
+                      :class="{
                   active: article.favorited
-                }"
-              >
+                }">
                 <i class="ion-heart"></i> {{article.favoritesCount}}
               </button>
             </div>
-            <nuxt-link
-              :to="{
+            <nuxt-link :to="{
                 name: 'article',
                 params: {
                   slug: article.slug
                 }  
               }"
-               class="preview-link">
+                       class="preview-link">
               <h1>{{article.title}}</h1>
               <p>{{article.body}}</p>
               <span>Read more...</span>
@@ -104,8 +95,39 @@
         </div>
 
       </div>
-    </div>
 
+      <!-- 分页列表 -->
+      <nav>
+        <ul class="pagination">
+          <li v-for="page in totalPage"
+              :key="page"
+              class="page-item ng-scope"
+              :class="{ active: currentPage === page }">
+              <!-- a链接的问题: 客户端渲染时整个页面刷新 -->
+            <!-- <a
+              class="page-link"
+              :href="`/?page=${page}`"
+            >
+              {{page}}
+            </a> -->
+            <!-- nuxt-link -->
+            <nuxt-link
+              class="page-link"
+              :to="{
+                name: 'home',
+                query: {
+                  page
+                }
+              }"
+            >
+              {{page}}
+            </nuxt-link>
+          </li>
+        </ul>
+      </nav>
+      <!-- /分页列表 -->
+
+    </div>
   </div>
 </template>
 
@@ -113,17 +135,29 @@
 import { getArticles } from '@/api/article'
 export default {
   name: 'HomeIndex',
-  async asyncData () {
-    const page = 1
-    const limit = 2
+  async asyncData ({
+    query
+  }) {
+    // http://localhost:3000/?page=2
+
+    const currentPage = Number.parseInt(query.page || 1, 10)
+    const limit = 20
     const { data } = await getArticles({
       limit,
-      offset: (page - 1) * limit
+      offset: (currentPage - 1) * limit
     })
     // console.log(data.articles[0]);
     return {
       articles: data.articles,
-      articlesCount: data.articlesCount  // 总数据量
+      articlesCount: data.articlesCount,  // 总数据量
+      limit,
+      currentPage
+    }
+  },
+  watchQuery: ['page'], // 监听query参数, 重新调用 asyncData
+  computed: {
+    totalPage () {
+      return Math.ceil(this.articlesCount / this.limit);
     }
   }
 }
