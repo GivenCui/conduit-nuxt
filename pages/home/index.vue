@@ -74,12 +74,10 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <nuxt-link
-                to=""
-                v-for="(tag, index) in tagsList"
-                :key="index"
-                class="tag-pill tag-default"
-              >{{tag}}</nuxt-link>
+              <nuxt-link to=""
+                         v-for="(tag, index) in tagsList"
+                         :key="index"
+                         class="tag-pill tag-default">{{tag}}</nuxt-link>
             </div>
           </div>
         </div>
@@ -93,15 +91,13 @@
               :key="page"
               class="page-item ng-scope"
               :class="{ active: currentPage === page }">
-            <nuxt-link
-              class="page-link"
-              :to="{
+            <nuxt-link class="page-link"
+                       :to="{
                 name: 'home',
                 query: {
                   page
                 }
-              }"
-            >
+              }">
               {{page}}
             </nuxt-link>
           </li>
@@ -126,21 +122,27 @@ export default {
 
     const currentPage = Number.parseInt(query.page || 1, 10)
     const limit = 20
-    // 获取文章列表
-    const { data } = await getArticles({
-      limit,
-      offset: (currentPage - 1) * limit
-    })
-    // 获取标签列表
-    const { data: tagsData } = await getTags()
+
+    let [articlesRes, tagsRes] = await Promise.all([
+      // 获取文章列表
+      getArticles({
+        limit,
+        offset: (currentPage - 1) * limit
+      }),
+      // 获取标签列表
+      getTags()
+    ])
+
+    const { articles, articlesCount } = articlesRes.data
+    const { tags } = tagsRes.data
 
     // console.log(data.articles[0]);
     return {
-      articles: data.articles,
-      articlesCount: data.articlesCount,  // 总数据量
+      articles,
+      articlesCount,  // 总数据量
       limit,
       currentPage,
-      tags: tagsData.tags || []
+      tags: tags || []
     }
   },
   watchQuery: ['page'], // 监听query参数, 重新调用 asyncData
@@ -148,7 +150,7 @@ export default {
     totalPage () {
       return Math.ceil(this.articlesCount / this.limit);
     },
-    tagsList() {
+    tagsList () {
       return this.tags.filter(tag => {
         // 零宽字符  参考: https://yuanfux.github.io/zero-width-web/
         tag = tag.replace(/[\u200B-\u200D\uFEFF]/g, '')
