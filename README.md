@@ -28,6 +28,7 @@ conduit基于nuxt.js实现版本
 - feat: 21-首页-展示公共文章列表
 - feat: 22-首页-列表分页-分页参数的使用
 - feat: 23-首页-列表分页-页码处理
+- feat: 24-首页-展示文章标签列表
 
 ### 15-同构应用的登录状态处理过程
 
@@ -73,6 +74,7 @@ conduit基于nuxt.js实现版本
 [接口 GET /api/articles](https://github.com/gothinkster/realworld/tree/master/api#list-articles)
 
 ### 22-首页-列表分页-分页参数的使用
+
 接口 /api/articles
 - ?limit=20
 - ?offset=0 数据偏移量, 和页面有关
@@ -92,7 +94,14 @@ pageCounts = Math.ceil(articlesCount / limit)
 ```
 
 ### 23-首页-列表分页-页码处理
+![img](img/pagination.png)
+
 [参考示例样式](https://demo.realworld.io/#/)
 
 
 默认情况下，query 的改变不会调用asyncData方法。如果要监听这个行为，例如，在构建分页组件时，您可以设置应通过页面组件的[watchQuery属性](https://www.nuxtjs.cn/api/pages-watchquery)监听参数
+
+### 24-首页-展示文章标签列表
+![image](img/popular-tags.png)
+
+[GET /api/tags](https://github.com/gothinkster/realworld/tree/master/api#get-tags)

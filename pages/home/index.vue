@@ -74,22 +74,12 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href=""
-                 class="tag-pill tag-default">programming</a>
-              <a href=""
-                 class="tag-pill tag-default">javascript</a>
-              <a href=""
-                 class="tag-pill tag-default">emberjs</a>
-              <a href=""
-                 class="tag-pill tag-default">angularjs</a>
-              <a href=""
-                 class="tag-pill tag-default">react</a>
-              <a href=""
-                 class="tag-pill tag-default">mean</a>
-              <a href=""
-                 class="tag-pill tag-default">node</a>
-              <a href=""
-                 class="tag-pill tag-default">rails</a>
+              <nuxt-link
+                to=""
+                v-for="(tag, index) in tagsList"
+                :key="index"
+                class="tag-pill tag-default"
+              >{{tag}}</nuxt-link>
             </div>
           </div>
         </div>
@@ -103,14 +93,6 @@
               :key="page"
               class="page-item ng-scope"
               :class="{ active: currentPage === page }">
-              <!-- a链接的问题: 客户端渲染时整个页面刷新 -->
-            <!-- <a
-              class="page-link"
-              :href="`/?page=${page}`"
-            >
-              {{page}}
-            </a> -->
-            <!-- nuxt-link -->
             <nuxt-link
               class="page-link"
               :to="{
@@ -133,6 +115,8 @@
 
 <script>
 import { getArticles } from '@/api/article'
+import { getTags } from '@/api/tags'
+
 export default {
   name: 'HomeIndex',
   async asyncData ({
@@ -142,22 +126,34 @@ export default {
 
     const currentPage = Number.parseInt(query.page || 1, 10)
     const limit = 20
+    // 获取文章列表
     const { data } = await getArticles({
       limit,
       offset: (currentPage - 1) * limit
     })
+    // 获取标签列表
+    const { data: tagsData } = await getTags()
+
     // console.log(data.articles[0]);
     return {
       articles: data.articles,
       articlesCount: data.articlesCount,  // 总数据量
       limit,
-      currentPage
+      currentPage,
+      tags: tagsData.tags || []
     }
   },
   watchQuery: ['page'], // 监听query参数, 重新调用 asyncData
   computed: {
     totalPage () {
       return Math.ceil(this.articlesCount / this.limit);
+    },
+    tagsList() {
+      return this.tags.filter(tag => {
+        // 零宽字符  参考: https://yuanfux.github.io/zero-width-web/
+        tag = tag.replace(/[\u200B-\u200D\uFEFF]/g, '')
+        return !!tag
+      })
     }
   }
 }
