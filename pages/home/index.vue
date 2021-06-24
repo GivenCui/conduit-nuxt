@@ -14,13 +14,56 @@
         <div class="col-md-9">
           <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
-              <li class="nav-item">
-                <a class="nav-link disabled"
-                   href="">Your Feed</a>
+              <li
+                v-if="user"
+                class="nav-item"
+              >
+                <nuxt-link
+                  class="nav-link"
+                  :class="{
+                    active: tab === 'your_feed'
+                  }"
+                  :to="{
+                    name: 'home',
+                    query: {
+                      tab: 'your_feed'
+                    }
+                  }"
+                  exact
+                  >Your Feed</nuxt-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active"
-                   href="">Global Feed</a>
+                <nuxt-link
+                  class="nav-link"
+                  :class="{
+                    active: tab === 'global_feed'
+                  }"
+                  :to="{
+                    name: 'home',
+                    query: {
+                      tab: 'global_feed'
+                    }
+                  }"
+                  exact
+                  >Global Feed</nuxt-link>
+              </li>
+              <li
+                v-if="tag"
+                class="nav-item"
+              >
+                <nuxt-link
+                  class="nav-link"
+                  :class="{
+                    active: tab === 'tag'
+                  }"
+                  :to="{
+                    name: 'home',
+                    query: {
+                      tab: 'tag',
+                      tag
+                    }
+                  }"
+                >#{{tag}}</nuxt-link>
               </li>
             </ul>
           </div>
@@ -78,7 +121,8 @@
                 :to="{
                   name: 'home',
                   query: {
-                    tag
+                    tag,
+                    tab:'tag'
                   }
                 }"
                 v-for="(tag, index) in tagsList"
@@ -126,6 +170,7 @@
 <script>
 import { getArticles } from '@/api/article'
 import { getTags } from '@/api/tags'
+import { mapState } from 'vuex'
 
 export default {
   name: 'HomeIndex',
@@ -136,13 +181,13 @@ export default {
 
     const currentPage = Number.parseInt(query.page || 1, 10)
     const limit = 20
-
+    const { tag, tab = 'global_feed' } = query
     let [articlesRes, tagsRes] = await Promise.all([
       // 获取文章列表
       getArticles({
         limit,
         offset: (currentPage - 1) * limit,
-        tag: query.tag
+        tag
       }),
       // 获取标签列表
       getTags()
@@ -155,13 +200,16 @@ export default {
     return {
       articles,
       articlesCount,  // 总数据量
+      tags: tags || [],
       limit,
       currentPage,
-      tags: tags || []
+      tag,
+      tab
     }
   },
-  watchQuery: ['page', 'tag'], // 监听query参数, 重新调用 asyncData
+  watchQuery: ['page', 'tag', 'tab'], // 监听query参数, 重新调用 asyncData
   computed: {
+    ...mapState(['user']),
     totalPage () {
       return Math.ceil(this.articlesCount / this.limit);
     },

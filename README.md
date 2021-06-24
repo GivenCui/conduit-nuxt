@@ -31,6 +31,9 @@ conduit基于nuxt.js实现版本
 - feat: 24-首页-展示文章标签列表
 - feat: 25-首页-优化并行异步任务
 - feat: 26-首页-处理标签列表链接和数据
+- feat: 27-首页-处理导航栏业务介绍
+- feat: 28-首页-处理导航栏-展示状态处理
+- feat: 29-首页-处理导航栏-标签高亮及链接
 
 ### 15-同构应用的登录状态处理过程
 
@@ -107,3 +110,11 @@ pageCounts = Math.ceil(articlesCount / limit)
 ![image](img/popular-tags.png)
 
 [GET /api/tags](https://github.com/gothinkster/realworld/tree/master/api#get-tags)
+
+### feat: 27-首页-处理导航栏业务介绍
+![image](img/nav-bar.png)
+
+1. 未登录时只显示 'Global Feed', 需要区分登录态
+2. 'Your Feed', 登录时展示
+3. 标签导航点击标签时出现, 
+  
