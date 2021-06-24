@@ -74,10 +74,19 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <nuxt-link to=""
-                         v-for="(tag, index) in tagsList"
-                         :key="index"
-                         class="tag-pill tag-default">{{tag}}</nuxt-link>
+              <nuxt-link
+                :to="{
+                  name: 'home',
+                  query: {
+                    tag
+                  }
+                }"
+                v-for="(tag, index) in tagsList"
+                :key="index"
+                class="tag-pill tag-default"
+              >
+                {{tag}}
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -87,17 +96,22 @@
       <!-- 分页列表 -->
       <nav>
         <ul class="pagination">
-          <li v-for="page in totalPage"
-              :key="page"
-              class="page-item ng-scope"
-              :class="{ active: currentPage === page }">
-            <nuxt-link class="page-link"
-                       :to="{
+          <li
+            v-for="page in totalPage"
+            :key="page"
+            class="page-item"
+            :class="{ active: currentPage === page }"
+          >
+            <nuxt-link
+              class="page-link"
+              :to="{
                 name: 'home',
                 query: {
-                  page
+                  page,
+                  tag: $route.query.tag
                 }
-              }">
+              }"
+            >
               {{page}}
             </nuxt-link>
           </li>
@@ -127,7 +141,8 @@ export default {
       // 获取文章列表
       getArticles({
         limit,
-        offset: (currentPage - 1) * limit
+        offset: (currentPage - 1) * limit,
+        tag: query.tag
       }),
       // 获取标签列表
       getTags()
@@ -145,7 +160,7 @@ export default {
       tags: tags || []
     }
   },
-  watchQuery: ['page'], // 监听query参数, 重新调用 asyncData
+  watchQuery: ['page', 'tag'], // 监听query参数, 重新调用 asyncData
   computed: {
     totalPage () {
       return Math.ceil(this.articlesCount / this.limit);
