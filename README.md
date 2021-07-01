@@ -35,6 +35,7 @@ conduit基于nuxt.js实现版本
 - feat: 28-首页-处理导航栏-展示状态处理
 - feat: 29-首页-处理导航栏-标签高亮及链接
 - feat: 30-首页-处理导航栏-展示用户关注的文章列表
+- feat: 31-首页-统一设置用户 Token
 
 ### 15-同构应用的登录状态处理过程
 
@@ -119,3 +120,45 @@ pageCounts = Math.ceil(articlesCount / limit)
 2. 'Your Feed', 登录时展示
 3. 标签导航点击标签时出现, 
   
+### feat: 31-首页-统一设置用户 Token
+鉴权写在 axios 的 拦截器 [interceptors](https://github.com/axios/axios#interceptors) 中
+
+[参考 博文](https://juejin.cn/post/6844904022353117192)
+
+#### 基本用法
+```js
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  }, function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+  });
+```
+
+#### 如何在拦截器中获取用户 token ?
+
+```js
+instance.interceptors.request.use(function(config) {
+   
+   config.headers.Authorization = `Token ${token ???}` // <-- 如何获取
+
+    return config
+}, function(error) {
+    // 请求未发出就失败的情况
+    return Promise.reject(error)
+})
+```
+参考 [nuxt 插件](https://www.nuxtjs.cn/guide/plugins)

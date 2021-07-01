@@ -1,8 +1,8 @@
-import request from "@/utils/webApi";
+import { fetch } from "@/plugins/fetch";
 
 // 用户登录
 export const login = (data) => {
-  return request({
+  return fetch({
     method: "POST",
     url: "/api/users/login",
     data,
@@ -11,7 +11,7 @@ export const login = (data) => {
 
 // 用户注册
 export const register = (data) => {
-  return request({
+  return fetch({
     method: "POST",
     url: "/api/users",
     data,

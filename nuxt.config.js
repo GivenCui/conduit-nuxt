@@ -64,5 +64,10 @@
       },
       linkActiveClass: 'active',
       linkExactActiveClass: 'active',
-    }
+    },
+
+    // 注册插件
+    plugins: [
+        '~/plugins/fetch.js'
+    ]
   }
