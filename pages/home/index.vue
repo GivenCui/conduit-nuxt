@@ -152,7 +152,8 @@
                 name: 'home',
                 query: {
                   page,
-                  tag: $route.query.tag
+                  tag: $route.query.tag,
+                  tab
                 }
               }"
             >
@@ -168,23 +169,30 @@
 </template>
 
 <script>
-import { getArticles } from '@/api/article'
+import { getArticles, getFeedArticle } from '@/api/article'
 import { getTags } from '@/api/tags'
 import { mapState } from 'vuex'
 
 export default {
   name: 'HomeIndex',
   async asyncData ({
-    query
+    query,
+    store
   }) {
     // http://localhost:3000/?page=2
 
     const currentPage = Number.parseInt(query.page || 1, 10)
     const limit = 20
     const { tag, tab = 'global_feed' } = query
+    const isLogin = !!store.state.user
+
+    const getArticlesApi = isLogin && tab === 'your_feed'
+      ? getFeedArticle
+      : getArticles
+
     let [articlesRes, tagsRes] = await Promise.all([
       // 获取文章列表
-      getArticles({
+      getArticlesApi({
         limit,
         offset: (currentPage - 1) * limit,
         tag
