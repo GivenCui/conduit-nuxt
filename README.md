@@ -38,6 +38,7 @@ conduit基于nuxt.js实现版本
 - feat: 31-首页-统一设置用户 Token
 - feat: 32-首页-文章发布时间格式化处理
 - feat: 33-首页-文章点赞
+- feat: 34-文章详情-业务介绍
 
 ### 15-同构应用的登录状态处理过程
 
@@ -182,3 +183,8 @@ dayjs('2019-01-25').format('MMM D, YYYY')
 - DELETE [/api/articles/:slug/favorite](https://github.com/gothinkster/realworld/tree/master/api#unfavorite-article)
 
 注意: 弱网情况下连续点赞/取消点赞需要标识处理, 防止多次无效请求
+
+### feat: 34-文章详情-业务介绍
+- 文章详情
+- 作者详情, 关注, 点赞
+- 评论
