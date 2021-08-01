@@ -39,6 +39,8 @@ conduit基于nuxt.js实现版本
 - feat: 32-首页-文章发布时间格式化处理
 - feat: 33-首页-文章点赞
 - feat: 34-文章详情-业务介绍
+- feat: 35-文章详情-展示基本信息
+- feat: 36-文章详情-把Markdown转为HTML
 
 ### 15-同构应用的登录状态处理过程
 
@@ -192,3 +194,6 @@ dayjs('2019-01-25').format('MMM D, YYYY')
 ### feat: 35-文章详情-展示基本信息
 - `pages/article/index.vue`
 - [GET /api/articles/:slug](https://github.com/gothinkster/realworld/tree/master/api#get-article)
+
+### feat: 36-文章详情-把Markdown转为HTML
+- [markdown-it/markdown-it](https://github.com/markdown-it/markdown-it)

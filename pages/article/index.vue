@@ -32,9 +32,7 @@
     <div class="container page">
 
       <div class="row article-content">
-        <div class="col-md-12">
-          {{ article.body }}
-        </div>
+        <div class="col-md-12" v-html="article.body"></div>
       </div>
 
       <hr />
@@ -132,6 +130,7 @@
 import {
   getArticle,
 } from '@/api/article'
+import MarkdownIt from 'markdown-it'
 
 export default {
     name: 'ArticleIndex',
@@ -139,9 +138,13 @@ export default {
       params
     }) {
       const { data } = await getArticle(params.slug)
+      const { article } = data
+      // article.body markdown 转换为 HTML
+      const md = new MarkdownIt()
+      article.body = md.render(article.body || '')
 
       return {
-        article: data.article || {},
+        article: article || {},
       }
     }
 }
