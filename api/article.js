@@ -33,3 +33,11 @@ export const delFavoriteArticle = (slug) => {
     url: `/api/articles/${slug}/favorite`,
   });
 }
+
+// 获取文章详情
+export const getArticle = (slug) => {
+  return fetch({
+    method: 'GET',
+    url: `/api/articles/${slug}`
+  })
+}

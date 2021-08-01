@@ -188,3 +188,7 @@ dayjs('2019-01-25').format('MMM D, YYYY')
 - 文章详情
 - 作者详情, 关注, 点赞
 - 评论
+
+### feat: 35-文章详情-展示基本信息
+- `pages/article/index.vue`
+- [GET /api/articles/:slug](https://github.com/gothinkster/realworld/tree/master/api#get-article)
