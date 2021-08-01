@@ -18,3 +18,18 @@ export const getFeedArticle = (params) => {
     params,
   });
 };
+
+// 添加关注
+export const addFavoriteArticle = (slug) => {
+  return fetch({
+    method: 'POST',
+    url: `/api/articles/${slug}/favorite`,
+  });
+}
+// 删除关注
+export const delFavoriteArticle = (slug) => {
+  return fetch({
+    method: 'DELETE',
+    url: `/api/articles/${slug}/favorite`,
+  });
+}

@@ -90,10 +90,14 @@
                 </nuxt-link>
                 <span class="date">{{article.createdAt | date('MMM D, YYYY')}}</span>
               </div>
-              <button class="btn btn-outline-primary btn-sm pull-xs-right"
-                      :class="{
+              <button
+                class="btn btn-outline-primary btn-sm pull-xs-right"
+                :class="{
                   active: article.favorited
-                }">
+                }"
+                @click="onFavorite(article)"
+                :disabled="article.favoritedDisabled"
+              >
                 <i class="ion-heart"></i> {{article.favoritesCount}}
               </button>
             </div>
@@ -169,7 +173,12 @@
 </template>
 
 <script>
-import { getArticles, getFeedArticle } from '@/api/article'
+import {
+  getArticles,
+  getFeedArticle,
+  addFavoriteArticle,
+  delFavoriteArticle
+} from '@/api/article'
 import { getTags } from '@/api/tags'
 import { mapState } from 'vuex'
 
@@ -204,7 +213,9 @@ export default {
     const { articles, articlesCount } = articlesRes.data
     const { tags } = tagsRes.data
 
-    // console.log(data.articles[0]);
+    // 为了处理点赞/取消点赞请求中时的标识
+    articles.forEach(article => article.favoritedDisabled = false)
+  
     return {
       articles,
       articlesCount,  // 总数据量
@@ -227,6 +238,35 @@ export default {
         tag = tag.replace(/[\u200B-\u200D\uFEFF]/g, '')
         return !!tag
       })
+    }
+  },
+  methods: {
+    async onFavorite(article) {
+      const {
+      slug,
+      favorited,
+    } = article
+      // { slug, favorited, favoritesCount }
+      if(article.favoritedDisabled) return;
+
+      article.favoritedDisabled = true
+
+      try {
+        if(favorited) {
+          // 取消点赞
+          await delFavoriteArticle(slug)
+          article.favorited = false
+          article.favoritesCount += -1
+        } else {
+          // 添加点赞
+          await addFavoriteArticle(slug)
+          article.favorited = true
+          article.favoritesCount += 1
+        }
+        article.favoritedDisabled = false
+      } catch (error) {
+        article.favoritedDisabled = false
+      }
     }
   }
 }
