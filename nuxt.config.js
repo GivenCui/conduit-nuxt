@@ -68,6 +68,7 @@
 
     // 注册插件
     plugins: [
-        '~/plugins/fetch.js'
+        '~/plugins/fetch.js',
+        '~/plugins/dayjs.js'
     ]
   }

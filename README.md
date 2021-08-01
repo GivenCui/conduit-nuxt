@@ -36,6 +36,7 @@ conduit基于nuxt.js实现版本
 - feat: 29-首页-处理导航栏-标签高亮及链接
 - feat: 30-首页-处理导航栏-展示用户关注的文章列表
 - feat: 31-首页-统一设置用户 Token
+- feat: 32-首页-文章发布时间格式化处理
 
 ### 15-同构应用的登录状态处理过程
 
@@ -162,3 +163,15 @@ instance.interceptors.request.use(function(config) {
 })
 ```
 参考 [nuxt 插件](https://www.nuxtjs.cn/guide/plugins)
+
+
+### feat: 32-首页-文章发布时间格式化处理
+- [dayjs](https://github.com/iamkun/dayjs/blob/dev/docs/zh-cn/README.zh-CN.md) 
+- 在全局过滤器中实现
+- vue 的过滤器 ?
+- nuxt 的过滤器 ?
+  - 需要 nuxt.config.js 中注册插件
+```js
+// 期望格式处理为: August 1, 2021
+dayjs('2019-01-25').format('MMM D, YYYY')
+```
