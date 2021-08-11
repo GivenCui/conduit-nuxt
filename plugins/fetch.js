@@ -5,7 +5,8 @@
  import axios from 'axios'
 
  export const fetch = axios.create({
-     baseURL: 'https://conduit.productionready.io', // api 不放到baseURL 中, 升级 api2
+    //  baseURL: 'https://conduit.productionready.io', // api 不放到baseURL 中, 升级 api2
+     baseURL: 'http://realworld.api.fed.lagounews.com', // api 不放到baseURL 中, 升级 api2
  })
  
  // nuxt 的插件 机制写法: 注入 context
