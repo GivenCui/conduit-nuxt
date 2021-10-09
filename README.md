@@ -43,6 +43,7 @@ conduit基于nuxt.js实现版本
 - feat: 36-文章详情-把Markdown转为HTML
 - feat: 40-发布部署-打包
 - feat: 41-发布部署-最简单的部署方式
+- feat: 42-发布部署-PM2 启动Node服务
 
 ### 15-同构应用的登录状态处理过程
 
@@ -211,3 +212,36 @@ dayjs('2019-01-25').format('MMM D, YYYY')
 - 解压 `unzip -q xxx.zip`
 - 安装依赖 `npm install`
 - 启动服务 `npm run start`, 通过`公网ip:3000` 访问
+
+### feat: 42-发布部署-PM2 启动Node服务
+> 解决 node 命令不能后台执行的问题
+
+- [github](https://github.com/Unitech/pm2)
+- [官方文档](https://pm2.keymetrics.io/docs/usage/quick-start/)
+- 安装 `npm install pm2 -g`
+- 启动 `pm2 start 脚本路径`
+
+
+|命令|说明|
+|---|---|
+|`pm2 list`|查看应用列表|
+|`pm2 start`|启动应用|
+|`pm2 stop`|停止应用|
+|`pm2 restart`|重启应用|
+|`pm2 reload`|重载应用 (推荐)|
+|`pm2 delete`|删除应用|
+
+举例:
+```sh
+# npm run start
+pm2 start npm -- run start
+
+# 查看服务列表
+pm2 list
+
+# 停止服务
+pm2 stop npm # 或 id
+
+```
+pm2 reload 和 pm2 restart 区别:
+> With reload, pm2 restarts all processes one by one, always keeping at least one process running,  reload 会至少保证有一个进程运行
