@@ -42,6 +42,7 @@ conduit基于nuxt.js实现版本
 - feat: 35-文章详情-展示基本信息
 - feat: 36-文章详情-把Markdown转为HTML
 - feat: 40-发布部署-打包
+- feat: 41-发布部署-最简单的部署方式
 
 ### 15-同构应用的登录状态处理过程
 
@@ -202,3 +203,11 @@ dayjs('2019-01-25').format('MMM D, YYYY')
 ### feat: 40-发布部署-打包
 - `nuxt build` 然后 `nuxt start`  [参考](https://www.nuxtjs.cn/guide/commands)
 - 打包的生成文件为 .nuxt
+
+### feat: 41-发布部署-最简单的部署方式
+- 配置 Host + port `nuxt.config.js 修改 host 为 0.0.0.0`
+- 压缩发布包 `.nuxt\ static\ nuxt.config.js package.json package-lock.json 打包为 zip`
+- scp 发布包 到服务端 `scp 本地路径  root@xx.xx.xx.xx:服务器路径`
+- 解压 `unzip -q xxx.zip`
+- 安装依赖 `npm install`
+- 启动服务 `npm run start`, 通过`公网ip:3000` 访问
