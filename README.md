@@ -41,6 +41,7 @@ conduit基于nuxt.js实现版本
 - feat: 34-文章详情-业务介绍
 - feat: 35-文章详情-展示基本信息
 - feat: 36-文章详情-把Markdown转为HTML
+- feat: 40-发布部署-打包
 
 ### 15-同构应用的登录状态处理过程
 
@@ -197,3 +198,7 @@ dayjs('2019-01-25').format('MMM D, YYYY')
 
 ### feat: 36-文章详情-把Markdown转为HTML
 - [markdown-it/markdown-it](https://github.com/markdown-it/markdown-it)
+
+### feat: 40-发布部署-打包
+- `nuxt build` 然后 `nuxt start`  [参考](https://www.nuxtjs.cn/guide/commands)
+- 打包的生成文件为 .nuxt
