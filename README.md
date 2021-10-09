@@ -45,6 +45,7 @@ conduit基于nuxt.js实现版本
 - feat: 41-发布部署-最简单的部署方式
 - feat: 42-发布部署-PM2 启动Node服务
 - feat: 43-发布部署-自动化部署介绍
+- feat: 44-发布部署-准备自动部署内容
 
 ### 15-同构应用的登录状态处理过程
 
@@ -254,3 +255,28 @@ pm2 reload 和 pm2 restart 区别:
 - 4个平台: 用户本地; git服务; ci/cd服务 (Jenkins); web 服务器
 - git push 时, 通知 jenkins 自动编译/构建, 或在 jenkins 手动编译/构建
 - 构建后的文件 弄到(scp) web 服务器, 如果 node服务, 需要 pm2 启动服务
+
+### feat: 44-发布部署-准备自动部署内容
+常见 CI/CD 服务
+- `Jenkins`
+- `Gitlab CI`
+- `Github Actions` <-- 演示
+- `Travis CI`
+
+#### 配置 Github `Personal Access Token`
+- 生成 PAT, https://github.com/settings/tokens `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`
+- 配置到项目中的 [Secrets](https://github.com/GivenCui/conduit-nuxt/settings/secrets/actions)
+
+#### 配置 Github Actions 执行脚本
+- 根目录创建 `.github/workflows` 目录
+- 下载 `main.yml` 到 `workflows` 目录中
+- 修改配置 `main.yml`
+  - [gist](https://gist.github.com/GivenCui/b487585f0918769d2a88e8f7ec5be9de)
+  - [了解 github actions](https://docs.github.com/cn/actions/learn-github-actions/understanding-github-actions)
+  - [yml 文档说明](https://docs.github.com/cn/actions/learn-github-actions/workflow-syntax-for-github-actions)
+  - [GitHub Actions 入门教程](https://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
+- 配置 `PM2` 配置文件
+- 提交更新
+- 查看自动部署状态
+- 访问网站
+- 提交更新
