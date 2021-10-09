@@ -44,6 +44,7 @@ conduit基于nuxt.js实现版本
 - feat: 40-发布部署-打包
 - feat: 41-发布部署-最简单的部署方式
 - feat: 42-发布部署-PM2 启动Node服务
+- feat: 43-发布部署-自动化部署介绍
 
 ### 15-同构应用的登录状态处理过程
 
@@ -245,3 +246,11 @@ pm2 stop npm # 或 id
 ```
 pm2 reload 和 pm2 restart 区别:
 > With reload, pm2 restarts all processes one by one, always keeping at least one process running,  reload 会至少保证有一个进程运行
+
+### feat: 43-发布部署-自动化部署介绍
+![img](https://cdn.nlark.com/yuque/0/2021/png/460925/1633770604420-7c112efb-196a-4209-b380-fe6931409301.png?x-oss-process=image%2Fresize%2Cw_1504%2Climit_0)
+
+总结
+- 4个平台: 用户本地; git服务; ci/cd服务 (Jenkins); web 服务器
+- git push 时, 通知 jenkins 自动编译/构建, 或在 jenkins 手动编译/构建
+- 构建后的文件 弄到(scp) web 服务器, 如果 node服务, 需要 pm2 启动服务
